@@ -164,8 +164,11 @@ func getRealIP(r *http.Request) string {
 
 func (s *BeamRPC) Add(args AddArgs, reply *RPCShare) error {
 	info, err := os.Stat(args.Path)
-	if os.IsNotExist(err) {
-		return errors.New("服务端无法找到该路径")
+	if err != nil {
+		if os.IsNotExist(err) {
+			return errors.New("服务端无法找到该路径")
+		}
+		return fmt.Errorf("服务端无法访问该路径 (权限不足?): %v", err)
 	}
 
 	code, err := generateCode(CodeLen)
