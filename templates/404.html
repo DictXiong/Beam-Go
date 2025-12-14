@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <title>404 - 未找到</title>
+    <style>
+        body { display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #11191f; }
+        article { width: 100%; max-width: 480px; text-align: center; border-radius: 16px; box-shadow: 0 4px 30px rgba(0,0,0,0.5); border: 1px solid #374956; }
+        .icon { font-size: 4rem; margin-bottom: 10px; }
+        h3 { color: #e53935; }
+        .desc { color: #888; margin-bottom: 30px; }
+    </style>
+</head>
+<body>
+    <article>
+        <div class="icon">🤔</div>
+        <h3>链接无效</h3>
+        <p class="desc">您访问的分享不存在、已过期，<br>或者提取码输入错误。</p>
+        <a href="{{.WebRoot}}" role="button" class="secondary outline">返回首页</a>
+    </article>
+</body>
+</html>

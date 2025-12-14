@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <title>Beam 文件分享</title>
+    <style>
+        body { display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #11191f; }
+        article { width: 100%; max-width: 480px; text-align: center; border-radius: 16px; box-shadow: 0 4px 30px rgba(0,0,0,0.5); }
+        .logo { font-size: 4rem; margin-bottom: 10px; animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+    </style>
+    <script>
+        function handleJump(event) {
+            event.preventDefault();
+            var code = document.getElementById("codeInput").value.trim();
+            if (code) {
+                window.location.href = "s/" + code + "/";
+            }
+        }
+    </script>
+</head>
+<body>
+    <article>
+        <div class="logo">⚡️</div>
+        <h3>Beam 文件分享</h3>
+        <p>请输入提取码</p>
+        <form onsubmit="handleJump(event)">
+            <input type="text" id="codeInput" name="code" required autocomplete="off" 
+                   style="text-align: center; font-size: 1.5rem; letter-spacing: 2px; font-weight: bold; height: 60px;">
+            <button type="submit" class="contrast">立即提取</button>
+        </form>
+    </article>
+</body>
+</html>

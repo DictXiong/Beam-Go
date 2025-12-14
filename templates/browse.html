@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <title>Beam - 浏览文件</title>
+    <style>
+        .icon { margin-right: 8px; text-decoration: none; }
+        tr:hover { background-color: rgba(255,255,255,0.05); }
+        .meta-info { font-size: 0.8rem; color: #888; }
+        .header-act { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        a { text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <main class="container">
+        <div class="header-act">
+            <hgroup>
+                <h4>📁 浏览内容</h4>
+                <h6>路径: /{{.Path}}</h6>
+            </hgroup>
+            {{if not .IsSingleFile}}
+            <a href="?action=zip" role="button" class="contrast outline">⬇️ 打包下载 ZIP</a>
+            {{end}}
+        </div>
+
+        <figure>
+            <table role="grid">
+                <thead>
+                    <tr>
+                        <th scope="col">文件名</th>
+                        <th scope="col" style="width: 120px;">大小</th>
+                        <th scope="col" style="width: 100px; text-align: right;">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{range .Items}}
+                    <tr>
+                        <td>
+                            <span class="icon">{{if .IsDir}}📂{{else}}📄{{end}}</span>
+                            <a href="{{.Path}}{{if .IsDir}}/{{end}}" {{if not .IsDir}}target="_blank"{{end}}>{{.Name}}</a>
+                        </td>
+                        <td class="meta-info">{{.Size}}</td>
+                        <td style="text-align: right;">
+                            {{if not .IsDir}}
+                            <a href="{{.Path}}" download>⬇️</a>
+                            {{end}}
+                        </td>
+                    </tr>
+                    {{end}}
+                </tbody>
+            </table>
+        </figure>
+        <div style="text-align: center; margin-top: 40px; opacity: 0.6;">
+            <a href="{{.WebRoot}}" class="secondary"><small>← 返回首页</small></a>
+        </div>
+    </main>
+</body>
+</html>
