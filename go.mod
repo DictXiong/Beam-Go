@@ -1,4 +1,4 @@
-module github.com/DictXiong/Beam-go
+module github.com/DictXiong/Beam-Go
 
 go 1.24.3
 
