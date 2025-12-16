@@ -149,7 +149,7 @@ server {
 
 ## 🔒 Security Design
 
-  * **Implicit Password (Token)**: Beam-Go does not use a traditional login page. Instead, it relies on a high-entropy 6-character random code (case-sensitive) as part of the URL. Only those with the full link can access the file.
+  * **Implicit Password (Token)**: Beam-Go relies on a 6-character random code (case-sensitive) as part of the URL. Only those with the full link can access the file.
   * **Permission Isolation**: The system strictly validates symlinks and paths to prevent Path Traversal attacks, ensuring users cannot access files outside the shared path.
   * **Rate Limiting**: Built-in IP-based rate limiting prevents brute-force attacks against the tokens.
 

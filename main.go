@@ -317,6 +317,7 @@ func handleShare(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	limiter.Pass(ip)
+	expireStr := expiresAt.Format("2006-01-02 15:04")
 
 	info, err := os.Stat(localPath)
 	if err != nil {
@@ -344,12 +345,14 @@ func handleShare(w http.ResponseWriter, r *http.Request) {
 				}
 				IsSingleFile bool
 				WebRoot      string
+				Expires      string
 			}{
 				Code: code, Path: "", Items: []struct {
 					Name, Size, Path string
 					IsDir            bool
 				}{item}, IsSingleFile: true,
 				WebRoot: webRoot,
+				Expires: expireStr,
 			}
 			tmplBrowse.Execute(w, data)
 			return
@@ -415,7 +418,8 @@ func handleShare(w http.ResponseWriter, r *http.Request) {
 			Items        []FileItem
 			IsSingleFile bool
 			WebRoot      string
-		}{code, subPath, items, false, webRoot})
+			Expires      string
+		}{code, subPath, items, false, webRoot, expireStr})
 		return
 	}
 
@@ -500,7 +504,10 @@ func cmdServe(args []string) {
 	initDB(dir)
 
 	// 清理旧的 Socket
-	if _, err := os.Stat(socketPath); err == nil {
+	if info, err := os.Stat(socketPath); err == nil {
+		if info.Mode()&os.ModeSocket == 0 {
+			log.Fatalf("❌ Socket 路径已存在且不是 Socket 文件: %s", socketPath)
+		}
 		os.Remove(socketPath)
 	}
 

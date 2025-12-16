@@ -20,6 +20,7 @@
             <hgroup>
                 <h4>📁 浏览内容</h4>
                 <h6>路径: /{{.Path}}</h6>
+                <p>过期时间: {{.Expires}}</p>
             </hgroup>
             {{if not .IsSingleFile}}
             <a href="?action=zip" role="button" class="contrast outline">⬇️ 打包下载 ZIP</a>
